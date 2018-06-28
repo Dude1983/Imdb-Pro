@@ -1,0 +1,18 @@
+{
+  "name": "imdb-pro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon npm index.js"
+  },
+  "author": "Carsten Pleiser",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "node-fetch": "^2.1.2",
+    "nodemon": "^1.17.5"
+  }
+}

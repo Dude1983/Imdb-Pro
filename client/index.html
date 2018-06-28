@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Simply Movies</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Simply Movies</a>
+  </nav>
+  <div id="app" class="container">
+    <section class="form" align="center">
+      <h2 align="center" class="mt-3">Simply Movies</h2>
+      <h4><em>Cutting out the crap from Movie Search</em></h4>
+      <form @submit.prevent="searchMovies(search_term)">
+        <fieldset class="form-group mt-5">
+          <label for="movie">What Movie are you looking for?</label>
+          <input v-model="search_term" type="text" class="form-control" id="movie" placeholder="Enter your search">
+        </fieldset>
+        <button type="submit" class="btn btn-primary btn-lg">And Action....</button>
+      </form>
+    </section>
+    <section id="search_results" class="search_results mt-4">
+      <table class="table table-hover" v-if="showTable">
+        <thead>
+          <tr>
+            <th scope="col ">Image</th>
+            <th scope="col ">Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="{title, image, imdbID } in movies ">
+            <td><img v-bind:src=image></td>
+            <td><a @click.prevent="getMovie(imdbID)" href=" ">{{ title }}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section v-if="movieResults" id="movieInfo">
+
+      <div class="card mb-3" v-for="movie in movieResults">
+        <h3 class="card-header">{{ movie.title }}</h3>
+        <div class="card-body">
+          <span v-if="movie.runTime"><small>Duration: {{ movie.runTime}} </small></span><br />
+          <span v-if="movie.rating"><small>Suitable For: {{ movie.rating}} </small><br /></span>
+          <span v-if="movie.imdbRating"><small>IMDB Rating: {{ movie.imdbRating}} </small></span><br />
+          <span class="badge badge-primary mr-1" v-for="genre in movie.genres">{{ genre }}</span>
+          <h5 class="card-title">{{ movie.storyLine }}</h5>
+        </div>
+        <img style="height: 25%; width: 25%; display: block; margin: 0 auto;" v-bind:src=movie.poster alt="Card image">
+        <div class="card-body">
+          <h5>Storyline</h5>
+          <p class="card-text">{{ movie.summary }}</p>
+          <h5>Talent</h5>
+          <ul>
+            <li v-for="star in movie.stars">
+              {{ star }}
+            </li>
+          </ul>
+          <h5>Directors</h5>
+          <ul>
+            <li v-for="director in movie.directors">
+              {{ director }}
+            </li>
+          </ul>
+        </div class="mb-0">
+        <div class="card-body mt-0">
+          <a v-bind:href=movie.trailer class="card-link">Watch Trailer</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Adding Vue -->
+  <script src=" https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js "></script>
+  <script src="client.js "></script>
+</body>
+
+</html>
